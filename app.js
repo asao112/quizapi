@@ -53,7 +53,7 @@ const fetchQuizData = async (index) => {
     .then((response) => response.text())
     .then((text) => console.log(text))
     .catch((error) => console.log(error));
-    fetch('file.txt')
+    fetch('https://opentdb.com/api.php?amount=10')
     .then((response) => {
         if(response.ok) { // ステータスがokならば
             return response.text(); // レスポンスをテキストとして変換する
