@@ -44,26 +44,17 @@ startButton.addEventListener('click', () => {
     fetchQuizData(1);
 });
 const fetchQuizData = async (index) => {
-    titleElement.textContent = '取得中';
-    questionElement.textContent = '少々お待ち下さい';
-    const response = await fetch(API_URL);
-    const quizData = await response.json();
-    const quizInstance = new Quiz(quizData);
-    fetch('https://opentdb.com/api.php?amount=10')
-    .then((response) => response.text())
-    .then((text) => console.log(text))
-    .catch((error) => console.log(error));
-    fetch('https://opentdb.com/api.php?amount=10')
-    .then((response) => {
-        if(response.ok) { // ステータスがokならば
-            return response.text(); // レスポンスをテキストとして変換する
-        } else {
-            throw new Error();
-        }
-    })
-    .then((text) => console.log(text))
-    .catch((error) => console.log(error));
-    setNextQuiz(quizInstance, index);
+    try {
+        titleElement.textContent = '取得中';
+        questionElement.textContent = '少々お待ち下さい';
+
+        const response = await fetch(API_URL)
+        const quizData = await response.json();
+        const quizInstance = new Quiz(quizData);
+        setNextQuiz(quizInstance, index);
+    } catch (err) {
+        alert('APIの取得に失敗しました');
+    }
 };
 const setNextQuiz = (quizInstance, index) => {
     while (answersContainer.firstChild) {
